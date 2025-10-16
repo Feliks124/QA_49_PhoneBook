@@ -23,7 +23,7 @@ public class ApplicationManager {
 
     }
 
-    @AfterMethod
+    @AfterMethod(enabled = false)
     public void tearDowm(){
         if (driver!=null)
             driver.quit();
