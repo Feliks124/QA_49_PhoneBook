@@ -2,6 +2,7 @@ package ui_tests;
 
 import dto.User;
 import manager.ApplicationManager;
+import org.checkerframework.checker.units.qual.A;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -9,7 +10,9 @@ import pages.ContactsPage;
 import pages.HomePage;
 import pages.LoginPage;
 
-import static utils.UserFactory.positiveUser;
+
+import static utils.UserFactory.*;
+import static utils.UserFactory.randomValidEmail;
 
 public class RegistrationTests extends ApplicationManager {
 
@@ -23,7 +26,7 @@ public class RegistrationTests extends ApplicationManager {
 
     @Test
     public void registrationPositiveTest(){
-        User user = positiveUser();
+        User user = randomUser(8);
         loginPage.typeRegForm(user);
         Assert.assertTrue(new ContactsPage(getDriver())
                 .isTextNoContactsPresent("No Contacts here!"));
@@ -31,10 +34,39 @@ public class RegistrationTests extends ApplicationManager {
 
     @Test
     public void registrationNegativeTest_wrongEmail(){
-        User user = positiveUser();
-        user.setUsername("wrong email");
+        User user = new User("wrong email", generatePassword(8));
         loginPage.typeRegForm(user);
         Assert.assertTrue(loginPage.closeAlertReturnText()
                 .contains("Wrong email or password format"));
     }
+
+    @Test
+    public void registrationNegativeTest_wrongPassword(){
+        User user = new User(randomValidEmail(),"wrong password");
+        loginPage.typeRegForm(user);
+        Assert.assertTrue(loginPage.closeAlertReturnText()
+                .contains("Wrong email or password format"));
+    }
+
+    @Test
+    public void registrationNegativeTest_withoutData(){
+        User user = new User("","");
+        loginPage.typeRegForm(user);
+        Assert.assertTrue(loginPage.closeAlertReturnText()
+                .contains("Wrong email or password format"));
+    }
+
+    @Test
+    public void registrationNegativeTest_DuplicateUser(){
+        User user = randomUser(8);
+        loginPage.typeRegForm(user);
+        Assert.assertTrue(new ContactsPage(getDriver())
+                .isTextNoContactsPresent("No Contacts here!"));
+        ContactsPage contactsPage = new ContactsPage(getDriver());
+        contactsPage.clickBtnSingOut();
+        loginPage.typeRegForm(user);
+        Assert.assertTrue(loginPage.closeAlertReturnText().contains("User already exist"));
+    }
+
+
 }

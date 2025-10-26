@@ -2,6 +2,7 @@ package pages;
 
 import dto.User;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -31,6 +32,10 @@ public class LoginPage extends BasePage{
 
     @FindBy(css = "button[name='registration']")
     WebElement btnRegistrationForm;
+
+    public boolean isLoginBtnVisible () {
+       return btnLoginForm.isDisplayed();
+    }
 
     public void typeLoginForm(String email, String password){
         inputEmail.sendKeys(email);

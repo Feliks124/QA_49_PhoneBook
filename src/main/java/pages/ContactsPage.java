@@ -20,6 +20,12 @@ public class ContactsPage extends BasePage {
     @FindBy(xpath = "//div[@class='contact-page_message__2qafk']")
     WebElement divTextNoContacts;
 
+    @FindBy(xpath = "//*[@id='root']/div[1]/button" )
+    WebElement btnSingOut;
+
+
+
+    public void clickBtnSingOut(){btnSingOut.click();}
 
     public boolean isTextContactsPresent(String text) {
         return isTextInElementPresent(btnContactsHeader, text);
