@@ -8,6 +8,7 @@ import pages.ContactsPage;
 import pages.HomePage;
 import pages.LoginPage;
 import utils.PropertiesReader;
+import utils.RetryAnalyzer;
 
 public class LoginTests extends ApplicationManager {
 
@@ -18,7 +19,7 @@ public class LoginTests extends ApplicationManager {
     String validPassword = PropertiesReader.getProperty
             ("base.properties", "password");
 
-    @Test
+    @Test (retryAnalyzer = RetryAnalyzer.class)
     public void loginPositiveTest() {
         HomePage homePage = new HomePage(getDriver());
         homePage.clickBtnLoginHeader();

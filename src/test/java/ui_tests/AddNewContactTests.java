@@ -49,4 +49,11 @@ public class AddNewContactTests extends ApplicationManager {
         Assert.assertTrue(contactsPage.isContactPresent(contact));
     }
 
+    @Test
+    public void addNewContactPositiveTestValidateScrollToLastContact(){
+        Contact contact = ContactFactory.positiveContact();
+        addPage.typeContactForm(contact);
+        Assert.assertTrue(contactsPage.isContactPresentWithScroll(contact));
+    }
+
 }
