@@ -1,10 +1,13 @@
 package pages;
 
+import dto.Contact;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
+
+import java.util.List;
 
 public class ContactsPage extends BasePage {
 
@@ -23,6 +26,12 @@ public class ContactsPage extends BasePage {
     @FindBy(xpath = "//*[@id='root']/div[1]/button" )
     WebElement btnSingOut;
 
+    @FindBy(className = "contact-item_card__2SOIM")
+    List<WebElement> contactsList;
+
+    @FindBy(xpath = "//div[@class='contact-page_leftdiv__yhyke']/div/div[last()]/h2")
+    WebElement lastElementList;
+
 
 
     public void clickBtnSingOut(){btnSingOut.click();}
@@ -34,6 +43,25 @@ public class ContactsPage extends BasePage {
     public boolean isTextNoContactsPresent(String text){
         System.out.println(divTextNoContacts.getText());
         return isTextInElementPresent(divTextNoContacts, text);
+    }
+
+    public boolean isContactPresent(Contact contact){
+        for (WebElement element: contactsList){
+            if(element.getText().contains(contact.getName())
+                    && element.getText().contains(contact.getPhone())){
+                System.out.println(element.getText());
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int getNumberOfContacts(){
+        return contactsList.size();
+    }
+
+    public void clickLastContact() {
+        lastElementList.click();
     }
 
 }

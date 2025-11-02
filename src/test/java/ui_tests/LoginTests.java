@@ -7,11 +7,16 @@ import org.testng.annotations.Test;
 import pages.ContactsPage;
 import pages.HomePage;
 import pages.LoginPage;
+import utils.PropertiesReader;
 
 public class LoginTests extends ApplicationManager {
 
-    String validEmail = "test_mail@gmail.com";
-    String validPassword = "Qw12345!";
+    //String validEmail = "test_mail@gmail.com";
+    String validEmail = PropertiesReader.getProperty
+            ("base.properties", "login");
+    //String validPassword = "Qw12345!";
+    String validPassword = PropertiesReader.getProperty
+            ("base.properties", "password");
 
     @Test
     public void loginPositiveTest() {
