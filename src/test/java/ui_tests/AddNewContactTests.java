@@ -15,7 +15,7 @@ import utils.HeaderMenuItem;
 import static pages.BasePage.clickButtonHeader;
 import static utils.PropertiesReader.getProperty;
 
-public class AddNewContactTests extends ApplicationManager {
+public class  AddNewContactTests extends ApplicationManager {
 
     HomePage homePage;
     LoginPage loginPage;
@@ -55,5 +55,14 @@ public class AddNewContactTests extends ApplicationManager {
         addPage.typeContactForm(contact);
         Assert.assertTrue(contactsPage.isContactPresentWithScroll(contact));
     }
+
+    @Test
+    public void addNewContactPositiveTestValidateElementScroll(){
+        Contact contact = ContactFactory.positiveContact();
+        addPage.typeContactForm(contact);
+        contactsPage.scrollToLastElementList();
+    }
+
+
 
 }

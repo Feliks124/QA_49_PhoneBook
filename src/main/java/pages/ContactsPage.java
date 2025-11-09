@@ -1,9 +1,12 @@
 package pages;
 
 import dto.Contact;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.WheelInput;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
@@ -83,6 +86,22 @@ public class ContactsPage extends BasePage {
             }
         }
         return false;
+    }
+
+    @FindBy(xpath = "//div[@class='contact-page_leftdiv__yhyke']/div")
+    WebElement divElementsList;
+
+    public void scrollToLastElementList() {
+        Actions actions = new Actions(driver);
+        int deltaY = divElementsList.getSize().getHeight();
+        //actions.scrollToElement(lastElementList).perform();   exp1
+//            int deltaY = driver.findElement(By.xpath
+//                    ("//*[@id='root']/div[2]/div/div/div[1]/div")).
+//                    getSize().getHeight();
+        WheelInput.ScrollOrigin scrollOrigin =
+                WheelInput.ScrollOrigin.fromElement(contactsList.get(0));
+        actions.scrollFromOrigin(scrollOrigin, 0, deltaY).perform();
+
     }
 
 

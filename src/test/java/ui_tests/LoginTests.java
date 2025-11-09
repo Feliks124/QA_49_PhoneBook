@@ -10,6 +10,8 @@ import pages.LoginPage;
 import utils.PropertiesReader;
 import utils.RetryAnalyzer;
 
+import java.lang.reflect.Method;
+
 public class LoginTests extends ApplicationManager {
 
     //String validEmail = "test_mail@gmail.com";
@@ -19,8 +21,10 @@ public class LoginTests extends ApplicationManager {
     String validPassword = PropertiesReader.getProperty
             ("base.properties", "password");
 
-    @Test (retryAnalyzer = RetryAnalyzer.class)
-    public void loginPositiveTest() {
+    @Test(retryAnalyzer = RetryAnalyzer.class)
+    public void loginPositiveTest(Method method) {
+        logger.info("Start test {}", method.getName()
+        );
         HomePage homePage = new HomePage(getDriver());
         homePage.clickBtnLoginHeader();
         LoginPage loginPage = new LoginPage(getDriver());
