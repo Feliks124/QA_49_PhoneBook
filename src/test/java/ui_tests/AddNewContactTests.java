@@ -4,6 +4,7 @@ import dto.Contact;
 import manager.ApplicationManager;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.AddPage;
 import pages.ContactsPage;
@@ -11,10 +12,12 @@ import pages.HomePage;
 import pages.LoginPage;
 import utils.ContactFactory;
 import utils.HeaderMenuItem;
+import utils.TestNGListener;
 
 import static pages.BasePage.clickButtonHeader;
 import static utils.PropertiesReader.getProperty;
 
+@Listeners(TestNGListener.class)
 public class  AddNewContactTests extends ApplicationManager {
 
     HomePage homePage;
